@@ -111,12 +111,14 @@ namespace EmpiricalPseudopotential
 				res.back().push_back(eigenvals(level));
 		}
 
-		return std::move(res);
+		return res;
 	}
 
 
 	double BandStructure::AdjustValues()
 	{
+		static const double HartreeToEv = 27.211385;
+
 		double maxValValence;
 		double minValConduction;
 
@@ -133,10 +135,10 @@ namespace EmpiricalPseudopotential
 				
 				// computation is done with atomic units
 				// results are in Hartree, here they are converted to eV
-				v *= 27.211385; 
+				v *= HartreeToEv;
 			}
 
-		return bandgap * 27.211385;
+		return bandgap * HartreeToEv;
 	}
 
 
