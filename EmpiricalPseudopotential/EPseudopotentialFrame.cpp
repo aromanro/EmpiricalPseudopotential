@@ -16,8 +16,6 @@ VTK_MODULE_INIT(vtkInteractionStyle);
 VTK_MODULE_INIT(vtkRenderingFreeType);
 //VTK_MODULE_INIT(vtkRenderingVolumeOpenGL2);
 
-
-
 #define MY_VTK_WINDOW 102
 
 #define ID_CALCULATE 105
@@ -60,18 +58,9 @@ EPseudopotentialFrame::EPseudopotentialFrame(const wxString& title, const wxPoin
 	CreateStatusBar();
 	SetStatusText("Welcome to Empirical Pseudopotential!");
 
-	m_pVTKWindow = new wxVTKRenderWindowInteractor(this, MY_VTK_WINDOW);
-	m_pVTKWindow->UseCaptureMouseOn();
-	//m_pVTKWindow->DebugOn();
-	m_pVTKWindow->DebugOff();
-	ConstructVTK();
-
-	std::vector<std::vector<double>> empty_results;
-	std::vector<unsigned int> empty_pos;
-	std::vector<std::string> empty_strings;
-	ConfigureVTK("", empty_results, empty_pos, empty_strings);
-	
 	currentOptions.Load();
+
+	ConstructVTK();
 
 	//Compute();
 }
@@ -81,24 +70,36 @@ EPseudopotentialFrame::~EPseudopotentialFrame()
 {
 	StopThreads(true);
 	DestroyVTK();
-	if (m_pVTKWindow) m_pVTKWindow->Delete();
 }
 
 
 
 void EPseudopotentialFrame::ConstructVTK()
 {
+	m_pVTKWindow = new wxVTKRenderWindowInteractor(this, MY_VTK_WINDOW);
+	m_pVTKWindow->UseCaptureMouseOn();
+	m_pVTKWindow->DebugOff();
+	//m_pVTKWindow->Initialize();
+
 	pRenderer = vtkRenderer::New();
 	pContextView = vtkContextView::New();
 
 	vtkRenderWindow *pRenderWindow = m_pVTKWindow->GetRenderWindow();
 	pRenderWindow->AddRenderer(pRenderer);
+
 	pContextView->SetInteractor(pRenderWindow->GetInteractor());
 	//pContextView->GetInteractor()->Initialize();
 
 	pChart = vtkChartXY::New();
+	
 	pChart->SetRenderEmpty(true);		
 	pContextView->GetScene()->AddItem(pChart);
+
+	std::vector<std::vector<double>> empty_results;
+	std::vector<unsigned int> empty_pos;
+	std::vector<std::string> empty_strings;
+
+	ConfigureVTK("", empty_results, empty_pos, empty_strings);
 }
 
 
@@ -107,6 +108,7 @@ void EPseudopotentialFrame::DestroyVTK()
 	if (pChart) pChart->Delete();
 	if (pRenderer) pRenderer->Delete();
 	if (pContextView) pContextView->Delete();
+	if (m_pVTKWindow) m_pVTKWindow->Delete();
 }
 
 
@@ -165,7 +167,6 @@ void EPseudopotentialFrame::OnAbout(wxCommandEvent& /*event*/)
 
 	info.SetWebSite("https://github.com/aromanro/EmpiricalPseudopotential", "GitHub repository");
 
-
 	wxAboutBox(info, this);	
 }
 
@@ -191,7 +192,6 @@ void EPseudopotentialFrame::ConfigureVTK(const std::string& name, const std::vec
 		Name += " Band";
 		pChart->SetTitle(Name.c_str());
 	}
-
 
 	pChart->SetAutoAxes(false);
 
