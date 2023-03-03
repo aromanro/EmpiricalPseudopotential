@@ -26,12 +26,12 @@ namespace EmpiricalPseudopotential
 				// off diagonal elements
 				matrix(i, j) = m_material.pseudopotential.GetValue(m_basisVectors[i] - m_basisVectors[j]);
 
-
+		// this is actually with 2 * M_PI, but I optimized it with the /2. from the kinetic energy term
+		const double t = M_PI / m_material.m_a;
 		for (unsigned int i = 0; i < basisSize; ++i)
 		{
 			// diagonal elements
-			// this is actually with 2 * M_PI, but I optimized it with the /2. from the kinetic energy term
-			const Vector3D<double> KG = M_PI / m_material.m_a  * (k + m_basisVectors[i]);
+			const Vector3D<double> KG = t * (k + m_basisVectors[i]);
 
 			matrix(i, i) = std::complex<double>(2. * KG * KG); // 2* comes from the above optimization, instead of a /2
 		}
