@@ -5,8 +5,8 @@ namespace EmpiricalPseudopotential
 	const double invBohr = 1. / 0.52917721092; // in Angstroms
 
 	Material::Material(const std::string& Name, double a, double V3S, double V8S, double V11S, double V3A, double V4A, double V11A)
-		: name(Name), 
-		m_a(a * invBohr), // convert it to Bohrs, the value is given in Angstroms
+		: name(Name),
+		m_a(a* invBohr), // convert it to Bohrs, the value is given in Angstroms
 		pseudopotential(V3S * 0.5, V8S * 0.5, V11S * 0.5, V3A * 0.5, V4A * 0.5, V11A * 0.5)  // the values are in Rydbergs, convert them to Hartree, one Rydberg is half a Hartree
 	{
 	}
@@ -38,6 +38,11 @@ namespace EmpiricalPseudopotential
 		// Added AlAs from here: https://www.ece.nus.edu.sg/stfpage/eleadj/pseudopotential.htm
 		// lattice constant from here: https://sector7.xray.aps.anl.gov/calculators/crystal_lattice_parameters.html
 		materials["AlAs"] = Material("AlAs", 5.6605, -0.221, 0.025, 0.07, 0.08, 0.05, -0.004);
+	}
+
+	const Material& Materials::getMaterial(const std::string& matName)
+	{
+		return materials[matName];
 	}
 
 }

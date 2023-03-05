@@ -29,7 +29,7 @@ void EPThread::join()
 
 void EPThread::Calculate()
 {
-	EmpiricalPseudopotential::Material &mat = m_frame->bandStructure.materials.materials[std::string(m_options.materialName.c_str())];
+	const EmpiricalPseudopotential::Material &mat = m_frame->bandStructure.materials.getMaterial(std::string(m_options.materialName.c_str()));
 
 	results = m_frame->bandStructure.Compute(mat, m_startPoint, m_endPoint, m_options.nrLevels, terminate);
 
