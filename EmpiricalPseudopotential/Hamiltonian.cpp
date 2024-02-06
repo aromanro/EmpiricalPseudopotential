@@ -19,8 +19,6 @@ namespace EmpiricalPseudopotential
 	{
 		const unsigned int basisSize = static_cast<unsigned int>(m_basisVectors.size());
 
-
-
 		for (unsigned int i = 0; i < basisSize; ++i)
 			for (unsigned int j = 0; j < i; ++j) // only the lower triangular of matrix is set because the diagonalization method only needs that
 				// off diagonal elements
@@ -43,7 +41,5 @@ namespace EmpiricalPseudopotential
 
 		assert(solver.info() == Eigen::ComputationInfo::Success);
 	}
-
-
 
 }

@@ -40,9 +40,9 @@ namespace EmpiricalPseudopotential
 		materials["AlAs"] = Material("AlAs", 5.6605, -0.221, 0.025, 0.07, 0.08, 0.05, -0.004);
 	}
 
-	const Material& Materials::getMaterial(const std::string& matName)
+	const Material& Materials::getMaterial(const std::string& matName) const
 	{
-		return materials[matName];
+		return materials.at(matName);
 	}
 
 }

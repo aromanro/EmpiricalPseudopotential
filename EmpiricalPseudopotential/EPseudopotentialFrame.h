@@ -52,7 +52,14 @@ class EPseudopotentialFrame : public wxFrame
 {
 public:
 	EPseudopotentialFrame(const wxString& title, const wxPoint& pos, const wxSize& size);
-	~EPseudopotentialFrame();
+	~EPseudopotentialFrame() override;
+
+public:
+	std::atomic_int runningThreads;
+
+	EmpiricalPseudopotential::BandStructure bandStructure;
+
+	Options currentOptions; // what's edited
 
 private:
 	void OnCalculate(wxCommandEvent& event);
@@ -63,27 +70,17 @@ private:
 	void OnOptions(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	void OnTimer(wxTimerEvent& event);
-	void OnEraseBackground(wxEraseEvent &event);
+	void OnEraseBackground(wxEraseEvent& event);
 
-protected:
 	void ConstructVTK();
 	void DestroyVTK();
 
 	void ConfigureVTK(const std::string& name, const std::vector<std::vector<double>>& results, std::vector<unsigned int>& symmetryPointsPositions, const std::vector<std::string>& symmetryPointsLabels);
 
-
 	bool isFinished() const;
 	void StopThreads(bool cancel = false);
 	void Compute();
 
-public:
-	std::atomic_int runningThreads;
-
-	EmpiricalPseudopotential::BandStructure bandStructure;
-
-	Options currentOptions; // what's edited
-
-private:
 	wxVTKRenderWindowInteractor *m_pVTKWindow;
 
 	// vtk classes

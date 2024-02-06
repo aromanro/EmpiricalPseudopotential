@@ -19,6 +19,7 @@ namespace EmpiricalPseudopotential
 		void Diagonalize();
 
 		const Eigen::VectorXd& eigenvalues() const { return solver.eigenvalues(); }
+
 	protected:
 		const Material& m_material;
 		const std::vector<Vector3D<int>>& m_basisVectors;

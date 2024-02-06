@@ -91,7 +91,7 @@ namespace EmpiricalPseudopotential
 	}
 
 
-	std::vector<std::vector<double>> BandStructure::Compute(const Material& material, unsigned int startPoint, unsigned int endPoint, unsigned int nrLevels, std::atomic_bool& terminate)
+	std::vector<std::vector<double>> BandStructure::Compute(const Material& material, unsigned int startPoint, unsigned int endPoint, unsigned int nrLevels, std::atomic_bool& terminate) const
 	{	
 		std::vector<std::vector<double>> res;
 

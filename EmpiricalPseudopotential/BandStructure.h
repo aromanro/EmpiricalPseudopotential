@@ -23,13 +23,14 @@ namespace EmpiricalPseudopotential
 		std::vector<unsigned int> symmetryPointsPositions;
 
 		void Initialize(std::vector<std::string> path, unsigned int nrPoints = 600,  unsigned int nearestNeighborsNumber = 10);
-		std::vector<std::vector<double>> Compute(const Material& material, unsigned int startPoint, unsigned int endPoint, unsigned int nrLevels, std::atomic_bool& terminate);
+		std::vector<std::vector<double>> Compute(const Material& material, unsigned int startPoint, unsigned int endPoint, unsigned int nrLevels, std::atomic_bool& terminate) const;
 
 		double AdjustValues();
 
 		unsigned int GetPointsNumber() const { return static_cast<unsigned int>(kpoints.size()); }
 
 		const std::vector<std::string>& GetPath() const { return m_path; }
+
 	private:
 		std::vector<std::string> m_path;
 

@@ -33,7 +33,7 @@ wxEND_EVENT_TABLE()
 
 
 EPseudopotentialFrame::EPseudopotentialFrame(const wxString& title, const wxPoint& pos, const wxSize& size)
-	: wxFrame(NULL, wxID_ANY, title, pos, size),
+	: wxFrame(nullptr, wxID_ANY, title, pos, size),
 	timer(this, 101), runningThreads(0)
 {
 	wxMenu *menuFile = new wxMenu;
@@ -61,8 +61,6 @@ EPseudopotentialFrame::EPseudopotentialFrame(const wxString& title, const wxPoin
 	currentOptions.Load();
 
 	ConstructVTK();
-
-	//Compute();
 }
 
 

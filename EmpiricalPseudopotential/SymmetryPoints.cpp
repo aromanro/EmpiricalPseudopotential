@@ -14,9 +14,6 @@ namespace EmpiricalPseudopotential
 		symmetryPoints["U"] = SymmetryPoint("U", Vector3D<double>(1., 0.25, 0.25));
 	}
 
-
-
-
 	std::vector<Vector3D<double>> SymmetryPoints::GeneratePoints(const std::vector<std::string>& path, unsigned int nrPoints, std::vector<unsigned int>& symmetryPointsPositions)
 	{
 		std::vector<Vector3D<double>> result;
